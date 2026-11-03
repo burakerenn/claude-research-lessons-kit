@@ -1,6 +1,6 @@
 # Research → Lessons Kit (for ChatGPT Projects)
 
-The same method as the Claude Code kit in this repo, set up as a single ChatGPT Project. It turns evidence into **lessons that change decisions**, in any domain: a product, a research project, a career, an engineering build, a team, a hobby or personal habits.
+The same method as the Claude Code kit in this repo, set up as a single ChatGPT Project. It turns evidence into **lessons that change decisions**, for technology, startup, business, engineering and AI work.
 
 **research / your own results → lessons → decisions → outcomes → better lessons**
 
@@ -14,18 +14,18 @@ The same method as the Claude Code kit in this repo, set up as a single ChatGPT 
 ## Setup (5 minutes)
 1. In ChatGPT, create a new **Project**.
 2. Paste everything below the line in `project-instructions.md` into the project **Instructions**.
-3. Fill in the **Context** section of `lessons-learned.md`: who you are, domain(s), goals, constraints, upcoming decisions. Rename the sections to fit your domain.
+3. Fill in the **Context** section of `lessons-learned.md`: who you are, what you build, stage, stack, constraints, upcoming decisions. Add sub-topics you need; keep the seven areas.
 4. Upload `lessons-learned.md` to the project **Files**.
 
 ## Commands
 Start a message with one of these:
 - **`RESEARCH <topic>`**: a dated web report with sources, [data] vs [opinion], success **and** failure cases, and lesson candidates. It does not change the lessons yet.
-  - `RESEARCH Why do small open-source projects lose contributors?`
+  - `RESEARCH How do B2B AI tools price heavy users, and which ones failed?`
 - **`RETRO <what>`**: the assistant interviews you about something you did (a project, test, purchase, launch, failure) and writes a retro.
-  - `RETRO Last month's attempt to switch our team to weekly planning`
+  - `RETRO Last month's beta launch`
 - **`LESSONS`**: turns the latest report or retro into lessons and returns the **complete** updated file.
 - **`DECIDE <question>`**: lists the lessons that apply, where they conflict and what evidence is missing, gives a recommendation, and gives you a Decision log row.
-  - `DECIDE Take the job offer, or keep freelancing for 6 more months?`
+  - `DECIDE Launch with a free tier, or a 14-day trial?`
 - **`REVIEW`** (about monthly): flags stale, duplicate, conflicting and unconfirmed lessons and returns a cleaned-up file.
 
 Without a command it chats normally, but cites lesson IDs when they are relevant. Write in any language.

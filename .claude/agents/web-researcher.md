@@ -1,6 +1,6 @@
 ---
 name: web-researcher
-description: Web researcher for any domain. Use for any task that needs internet research (how others solved a problem, what went wrong for them, comparisons, technical docs, prices, rules, state of the art). Searches, opens and cross-checks sources, saves a full dated report to research/, and returns only a short summary. Does not write lessons, edit project files or make decisions.
+description: Web researcher for technology, startup, business, engineering and AI questions. Use for any task that needs internet research (competitors and markets, how others solved a problem, what went wrong for them, tool and vendor comparisons, technical docs, prices, regulations, state of the art). Searches, opens and cross-checks sources, saves a full dated report to research/, and returns only a short summary. Does not write lessons, edit project files or make decisions.
 tools: WebSearch, WebFetch, Read, Write, Glob, Grep
 model: sonnet
 ---
