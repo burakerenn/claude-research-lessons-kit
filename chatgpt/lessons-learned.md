@@ -1,7 +1,8 @@
 # Lessons learned
 
 **Purpose:** turn evidence into lessons that change decisions, in technology, startups, business, engineering and AI. Evidence means research, your own experiments, project results, mistakes and wins.
-**How to use:** before any decision that matters, read the Top 10 and the area it belongs to. Cite lesson IDs when you decide.
+**How to use:** before a decision that matters, read the Top 10, then grep this file for the decision's trigger words. Pull 1-3 lessons, quote their Action line, and mark the decision `uses: L-xxx` (or `uses: none`).
+**Writer:** the keeper only (`lessons-keeper`, or the LESSONS command in ChatGPT). One lesson per edit; the file is never regenerated.
 **Last updated:** YYYY-MM-DD
 
 ---
@@ -19,7 +20,7 @@ Every lesson is applied to this context, so a lesson that is true in general but
 ---
 
 ## Areas and sub-topics
-Lessons live in one of these areas. The sub-topics are tags: put the matching one in the lesson's **Area** field (e.g. `Engineering › scope`). Add sub-topics when you need them; keep the areas as they are so the file stays navigable.
+Lessons live in one of these areas. Put the matching sub-topic in the lesson's **Area** field (e.g. `Engineering › scope`). Add sub-topics when you need them; keep the seven areas. Topics outside these areas get no lesson; the report keeps the finding.
 
 | Area | Sub-topics |
 |---|---|
@@ -35,64 +36,88 @@ Lessons live in one of these areas. The sub-topics are tags: put the matching on
 
 ## How lessons are written
 
-### A lesson is not a summary
-A summary says what happened. A lesson says what happened, why it happened, and **what you will do differently**. If there is no action, it is a note, not a lesson.
-- Weak: "Many projects ran late."
-- Strong: "Projects whose scope was not frozen before the build started ran 2-3x over time (A, B, C) → each late request reset the work in progress → freeze scope at a fixed date; new requests go into the next round."
+A summary says what happened. A lesson says what happened, why, and **what you will do differently**. No action, no lesson.
+A lesson counts as *learned* only when something changed (a checklist, a prompt, a tool) and a later case showed it worked.
 
-### Fields
+### Fields (one-word names, so grep works)
 | Field | What goes in it |
 |---|---|
-| **ID** | L-001, L-002, … Never reused, even after retirement. |
-| **Title** | The action in one line. |
-| **Area** | Area › sub-topic from the table above. |
-| **Type** | **Do** (repeat what worked) · **Avoid** (a failure pattern) · **Watch** (an early warning sign) |
-| **When it applies** | The situation that should trigger this lesson, e.g. "before signing a vendor contract" or "when a deadline moves". |
-| **Observation** | What happened, with the cases named. |
-| **Cause** | Why it happened: the mechanism, not a restatement. |
-| **Action** | What to do, concrete enough that you could check later whether you did it. |
-| **Limits** | When it does *not* hold, plus any counter-evidence. |
-| **Evidence** | Sources, each with its type: `research` (report), `experiment` (your own test), `retro` (review of your own project), `experience` (first-hand, unwritten), `expert` (someone who knows). |
-| **Confidence** | **high** = several independent cases or a primary source · **medium** = a few cases · **low** = one case, a snippet, or unverified numbers |
-| **Status** | **candidate** (new, one source) → **active** (confirmed by a second independent case or a primary source) → **retired** (proven wrong or outdated, with the reason) |
-| **Review by** | A date to re-check. Use it for fast-changing topics: prices, model capabilities, tools, laws, markets. Leave it empty for stable lessons. |
-| **Related** | Other lesson IDs that support, refine or conflict with this one. |
-| **Dates** | Added / updated. |
+| `### L-0xx <title>` | The title is a claim ("Unfrozen scope makes builds run late"). IDs are never reused. |
+| Area | Area › sub-topic from the table above |
+| Type | **Do** (repeat what worked) · **Avoid** (a failure pattern) · **Watch** (an early warning sign) |
+| When | The trigger in plain words: "before paying for a tool", "when a deadline moves" |
+| Observation | What happened; two contrasting cases where possible |
+| Cause | The mechanism, not a restatement |
+| Action | What you do, concrete enough to check later. Your own words, never copied from a source quote |
+| Limits | When it does not hold; counter-evidence; conflicting lesson IDs |
+| Evidence | Report path + section, or `retro` / `experiment` / `experience` / `expert`; access: full / part / snip |
+| Grade | Source letter × claim number for the central claim, e.g. `B2` (legend below) |
+| Likelihood | Only when the action rests on a forecast: word + number, e.g. "likely (55-75%)" |
+| Status | watch → identified → actioned → embedded → verified; or retired (ladder below) |
+| Rung | R0-R5: how the lesson is built in (ladder below) |
+| Embedded in | The file, checklist, prompt or tool that now carries it |
+| Owner | One role who keeps it alive |
+| Review by | Principles 12 months; area lessons 6 months; tools, AI, prices and security 3 months |
+| Re-test by | Avoid lessons only: a date for one cheap check that the avoid still holds |
+| Related | Supporting, refining or conflicting IDs |
+| Class | **public** (may be shared) · **internal** (your context, no personal facts) · **personal** (facts about a person; never shared) |
+| Dates | Added / updated |
 
-### Quality gate (every lesson must pass)
-1. **Actionable:** the Action names something you can do or check.
-2. **Specific:** it names when it applies; "always" and "never" need strong evidence.
-3. **Evidenced:** every claim traces to a listed source; nothing is invented.
-4. **Not obvious:** if everyone already knows it, it only stays when you keep breaking it.
-5. **Scoped to your context:** it says when it only holds for others (bigger teams, other countries, more money).
-6. **Flagged:** money, legal and security lessons say **VERIFY before deciding** and name the claim to check.
+Use counts are not stored here. Count them from the `uses:` markers in your decisions.
+Money, legal and security lessons add a line `VERIFY: <the exact claim to check>`; they are checked before they move past identified.
+
+**Grade.** Source: **A** primary and authoritative for this fact (incl. your own measurement) · **B** independent and methodical · **C** credible but interested or thin (a vendor on its own product) · **D** weak (anonymous, forum) · **E** unreliable · **F** cannot judge (incl. snippet-only). Claim: **1** confirmed (two independent origins, or one A source with first-hand authority) · **2** probably true · **3** possibly true (max for F sources) · **4** doubtful · **5** improbable · **6** cannot judge.
+
+### Status ladder (what moves a lesson)
+| Status | Entry condition | Proof |
+|---|---|---|
+| watch | One report, vendor-only, or thin but plausible. Not eligible for the Top 10 | Report path |
+| identified | Passes the admission gate; has cause, action, owner | ≥2 independent origins, or your own outcome |
+| actioned | Done once, or a decision gate honoured it | Decision with `uses: L-xxx` |
+| embedded | A file or tool carries it at R2 or higher | Path + line |
+| verified | A later outcome, retro or test showed the effect | Decision review or retro ID |
+| retired | Wrong, merged, superseded, expired, or retired by outcome | Entry in Retired lessons, with reason |
+
+If the failure comes back while the lesson exists: back to identified ("embed failed"), next embed one rung higher.
+
+### Rung ladder (how it is built in; stronger is higher)
+| Rung | Meaning |
+|---|---|
+| R5 Remove | The tool or path that allowed the failure is gone |
+| R4 Enforce | A hook, deny rule or check that blocks it |
+| R3 Gate | A required field someone checks (a line in the decision gate) |
+| R2 Scoped | A line in one agent prompt, skill or checklist, at its trigger |
+| R1 Always-loaded | A line in CLAUDE.md or similar, read every session |
+| R0 Reference | Only in this file |
+
+A lesson broken twice moves up one rung. Money, sending, publishing, deleting and secrets go straight to R4 or R5. A block that fires wrongly or nags gets narrowed.
 
 ---
 
 ## Top 10 lessons now
-The ten lessons that matter most for your **upcoming decisions**. Rewritten after every curation run.
+The lessons that matter most for your **upcoming decisions**. Changed only with a stated reason. Watch lessons are not eligible.
 
-> The three lessons below are EXAMPLES. They show the format, not real research. Delete them after your first real curation run.
+> The lessons below are EXAMPLES. They show the format, not real research. Retire them after your first real keeper run.
 
-1. [L-001](#l-001-example-freeze-scope-before-the-build-starts) (EXAMPLE) Freeze scope before the build starts; new requests go to the next round.
-2. [L-002](#l-002-example-adopt-a-tool-or-saas-only-after-a-trial-on-the-real-workload) (EXAMPLE) Adopt a tool or SaaS only after a trial on the real workload.
-3. [L-003](#l-003-example-ship-an-llm-feature-only-with-an-eval-set) (EXAMPLE) Ship an LLM feature only with an eval set; without one, prompt changes regress silently.
+1. L-001 (EXAMPLE) Unfrozen scope makes builds run late.
+2. L-002 (EXAMPLE) Tools chosen from demos get dropped; a trial on the real job predicts use.
+3. L-003 (EXAMPLE) LLM features without an eval set regress silently.
 
 ---
 
 ## Technology
 
-### L-002 (EXAMPLE) Adopt a tool or SaaS only after a trial on the real workload
-- **Area:** Technology › vendors and SaaS
-- **Type:** Do
-- **When it applies:** before paying for a tool, platform or service.
-- **Observation:** two tools chosen from reviews and demos were dropped within a month. The one trialled on a real workload first is still in use.
-- **Cause:** reviews and demos test general features; your bottleneck is one specific job, which demos rarely cover.
-- **Action:** write down the one job the tool must do, run it on real data in a trial, then buy.
-- **Limits:** for cheap tools the trial may cost more than a wrong purchase.
-- **Evidence:** EXAMPLE (experience), no real source.
-- **Confidence:** low (example) · **Status:** candidate · **Review by:** – · **Related:** –
-- **Added:** YYYY-MM-DD
+### L-002 (EXAMPLE) Tools chosen from demos get dropped; a trial on the real job predicts use
+- Area: Technology › vendors and SaaS · Type: Do · Class: public
+- When: before paying for a tool, platform or service
+- Observation: two tools chosen from reviews and demos were dropped within a month; one trialled on a real workload first is still in use.
+- Cause: demos show general features; the bottleneck is one specific job that demos rarely cover.
+- Action: write down the one job the tool must do, run it on real data in a trial, then buy.
+- Limits: for cheap tools the trial may cost more than a wrong purchase.
+- Evidence: EXAMPLE (experience), no real source
+- Grade: – · Status: actioned · Rung: R2 · Embedded in: purchase checklist (EXAMPLE)
+- Owner: whoever buys tools · Review by: YYYY-MM-DD · Related: –
+- Added YYYY-MM-DD · Updated –
 
 ## Startup
 
@@ -100,31 +125,31 @@ The ten lessons that matter most for your **upcoming decisions**. Rewritten afte
 
 ## Engineering
 
-### L-001 (EXAMPLE) Freeze scope before the build starts
-- **Area:** Engineering › scope and estimation
-- **Type:** Avoid
-- **When it applies:** starting any build with a deadline.
-- **Observation:** three projects that accepted new requests during the build finished 2-3x late. A fourth that froze scope on day one finished on time.
-- **Cause:** each mid-build change reset work in progress and needed re-testing; the cost grew with every change.
-- **Action:** write the scope down and set a freeze date. Changes after it go to a "next round" list unless they block the goal.
-- **Limits:** less true for exploration or research work, where learning is the goal.
-- **Evidence:** EXAMPLE (retro), no real source.
-- **Confidence:** low (example) · **Status:** candidate · **Review by:** – · **Related:** L-003
-- **Added:** YYYY-MM-DD
+### L-001 (EXAMPLE) Unfrozen scope makes builds run late
+- Area: Engineering › scope and estimation · Type: Avoid · Class: public
+- When: starting any build with a deadline
+- Observation: three projects that took new requests during the build finished 2-3x late; one that froze scope on day one finished on time.
+- Cause: each mid-build change reset work in progress and needed re-testing.
+- Action: write the scope down with a freeze date; later requests go to a "next round" list unless they block the goal.
+- Limits: less true for exploration work, where learning is the goal. Four cases, one team: rival cause is team size.
+- Evidence: EXAMPLE (retro), no real source
+- Grade: – · Status: identified · Rung: R0 · Embedded in: –
+- Owner: project lead · Review by: YYYY-MM-DD · Re-test by: YYYY-MM-DD · Related: L-003
+- Added YYYY-MM-DD · Updated –
 
 ## AI
 
-### L-003 (EXAMPLE) Ship an LLM feature only with an eval set
-- **Area:** AI › evaluation
-- **Type:** Watch
-- **When it applies:** adding or changing any prompt, model or retrieval step in a product.
-- **Observation:** a prompt tweak that fixed one complaint broke two other cases; nobody noticed for three weeks because there was no test set.
-- **Cause:** LLM behaviour changes are non-local: a change for one input shifts outputs for others, and without a fixed set of cases there is nothing to compare against.
-- **Action:** before the first release, collect 20-50 real cases with expected outcomes. Run them on every prompt or model change. A drop in the pass rate blocks the change.
-- **Limits:** a tiny eval set gives false confidence; grow it from production failures.
-- **Evidence:** EXAMPLE (retro), no real source.
-- **Confidence:** low (example) · **Status:** candidate · **Review by:** – · **Related:** L-001
-- **Added:** YYYY-MM-DD
+### L-003 (EXAMPLE) LLM features without an eval set regress silently
+- Area: AI › evaluation · Type: Watch · Class: public
+- When: adding or changing a prompt, model or retrieval step in a product
+- Observation: a prompt tweak that fixed one complaint broke two other cases; nobody noticed for three weeks.
+- Cause: LLM changes are non-local; without fixed cases there is nothing to compare against.
+- Action: keep 20-50 real cases with expected outcomes; run them on every prompt or model change; a drop blocks the change.
+- Limits: a tiny eval set gives false confidence; grow it from production failures.
+- Evidence: EXAMPLE (retro), no real source
+- Grade: – · Status: embedded · Rung: R4 · Embedded in: CI eval step (EXAMPLE)
+- Owner: AI feature owner · Review by: YYYY-MM-DD · Related: L-001
+- Added YYYY-MM-DD · Updated –
 
 ## Legal, security and risk
 
@@ -134,16 +159,18 @@ The ten lessons that matter most for your **upcoming decisions**. Rewritten afte
 
 ## Open questions
 Evidence that would create, confirm or overturn a lesson. Each one can become a research brief or an experiment.
-- 
+- Q-001 
 
-## Decision log (optional)
-Close the loop: record which lessons a decision used, then come back and note the outcome. Outcomes become new evidence.
-| Date | Decision | Lessons used | Outcome (fill in later) |
+## Decision log (small decisions; big ones get a file in `decisions/`)
+| Date | Decision | uses: | Outcome (fill in later) |
 |---|---|---|---|
-|  |  |  |  |
+|  |  | L-… / none |  |
 
 ## Retired lessons
-Lessons proven wrong or outdated, with the reason and the date. Never deleted, so you can see why your view changed.
+Wrong, merged, superseded or expired lessons, with the reason and date. Never deleted silently.
 
 ## Changelog
-- YYYY-MM-DD · File created from the template, 3 example lessons.
+One line per keeper run: date · change list (`L-0xx ADD|UPDATE|MERGE|SPLIT|SUPERSEDE|RETIRE|NOOP: source`).
+- YYYY-MM-DD · File created from the template, 3 EXAMPLE lessons.
+
+<!-- When this file passes about 150 lines of lessons or 16,000 characters, split it: see research/lessons/INDEX.md. -->
